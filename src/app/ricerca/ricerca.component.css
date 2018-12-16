@@ -5,3 +5,7 @@
     border: solid 1px #ffffff;
     padding: 5px;
 }
+.btn {
+    background-color: #ffb606;
+    border-color: #800000;
+}

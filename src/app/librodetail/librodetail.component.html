@@ -1,0 +1,9 @@
+<h2 class="text-center">Dettagli del libro</h2>
+<hr>
+<ul class="list-group" *ngFor="let row of rows">
+  <div *ngIf="libro[row]">
+  <li class="list-group-item active">{{row}}</li>
+  <li class="list-group-item">{{libro[row]}}</li>
+</div>
+</ul>
+<a onclick="window.close()" class="btn btn-primary" role="button">Chiudi</a>

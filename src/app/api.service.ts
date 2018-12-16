@@ -14,4 +14,9 @@ export class ApiService {
     const options = ricerca ? { params: new HttpParams().set('stringa', ricerca)} : {};
     return this.httpClient.get<Libro[]>(`${this.API_URL}/biblioteca.html`, options);
   }
+  public getLibroDetail(n: number)  {
+    let param: string = n.toString();
+    const options = n ? { params: new HttpParams().set('n', param)} : {};
+    return this.httpClient.get(`${this.API_URL}/biblioteca.html`, options);
+  }
 }

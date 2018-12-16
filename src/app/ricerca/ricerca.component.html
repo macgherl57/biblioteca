@@ -1,17 +1,52 @@
-<h1 class="display-2 text-center">Risultati Ricerca</h1>
-
+<h1 class="display-2 text-center" [style.color]="'#f6b606'">Biblioteca</h1>
+<p class="lead">
+    Sono presenti nel seguente database 18914 volumi della biblioteca del Liceo, comprendenti
+    tutte le novità dal 1996 a oggi e tutti i volumi della collezione classica.
+</p>
+<hr>
 <form #ricercaForm="ngForm" class="form-signin" (ngSubmit)="cerca(ricercaForm.value)">
   <div class="form-group">
     <label for="stringa">Immetti stringa di ricerca</label>
     <input type="text"
-      class="form-control" name="stringa" id="stringa" aria-describedby="helpId" placeholder="Testo della Ricerca" ngModel>
+      class="form-control" name="stringa" id="stringa" aria-describedby="helpId" placeholder="Testo della Ricerca" autofocus required ngModel>
     <small id="helpId" class="form-text text-muted">Il testo può essere sia relativo a un autore sia a un titolo.</small>
   </div>
-  <button type="submit" class="btn btn-primary">Invia</button>
+  <div *ngIf="!ricercaForm.valid else showSubmitButton">
+        <button type="submit" class="btn btn-lg btn-primary" disabled>Cerca</button>
+      </div>
+      <ng-template #showSubmitButton>
+        <button type="submit" class="btn btn-lg btn-primary">Cerca</button>
+      </ng-template>
 </form>
 <hr>
+<div *ngIf="error && !submitted">
+    <div class="alert alert-danger" role="alert">
+        La ricerca non ha prodotto alcun risultato. Prova con un'altra stringa.
+    </div>
+</div>
 <div *ngIf="submitted">
-<div class="row text-white bg-dark">
+  <div class="alert alert-success" role="alert">
+      La ricerca ha prodotto <strong>{{libri.length}}</strong> volumi.
+  </div>
+  <ul *ngIf="pager.pages && pager.pages.length > 1" class="pagination justify-content-center">
+        <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+            <a (click)="setPage(1)" class="page-link">First</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+            <a (click)="setPage(pager.currentPage - 1)" class="page-link">Previous</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}" class="page-item">
+            <a (click)="setPage(page)" class="page-link">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item">
+            <a (click)="setPage(pager.currentPage + 1)" class="page-link">Next</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item">
+            <a (click)="setPage(pager.totalPages)" class="page-link">Last</a>
+        </li>
+    </ul>
+  <div class="row text-white bg-dark">
+  <div class="col">Action</div>
   <div class="col">Autore</div>
   <div class="col">Titolo</div>
   <div class="col">Curatore</div>
@@ -19,7 +54,8 @@
   <div class="col">Soggetto</div>
   <div class="col">Collocazione</div>
 </div>
-<div class="row text-white bg-dark" *ngFor="let libro of libri">
+<div class="row text-white bg-dark" *ngFor="let libro of pagedItems">
+  <div class="col text-dark bg-white"><a routerLink="/detail/{{libro.n}}" target="_blank"><img [src]="'assets/images/info.png'"></a></div>
   <div class="col">{{libro.autore}}</div>
   <div class="col">{{libro.titolo}}</div>
   <div class="col">{{libro.curatore}}</div>
@@ -27,4 +63,21 @@
   <div class="col">{{libro.soggetto}}</div>
   <div class="col">{{libro.collocazione}}</div>
 </div>
+  <ul *ngIf="pager.pages && pager.pages.length > 1" class="pagination justify-content-center">
+    <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+        <a (click)="setPage(1)" class="page-link">First</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+        <a (click)="setPage(pager.currentPage - 1)" class="page-link">Previous</a>
+    </li>
+    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}" class="page-item">
+        <a (click)="setPage(page)" class="page-link">{{page}}</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item">
+        <a (click)="setPage(pager.currentPage + 1)" class="page-link">Next</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item">
+        <a (click)="setPage(pager.totalPages)" class="page-link">Last</a>
+    </li>
+</ul>
 </div>
