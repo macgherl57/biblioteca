@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RicercaComponent } from './ricerca/ricerca.component';
 import { LibrodetailComponent } from './librodetail/librodetail.component';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { LibrodetailComponent } from './librodetail/librodetail.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbPopoverModule
   ],
   providers: [],
   bootstrap: [AppComponent]

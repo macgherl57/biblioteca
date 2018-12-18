@@ -1,9 +1,34 @@
 <h2 class="text-center">Dettagli del libro</h2>
 <hr>
+<!--
 <ul class="list-group" *ngFor="let row of rows">
   <div *ngIf="libro[row]">
-  <li class="list-group-item active">{{row}}</li>
+  <li class="list-group-item"><strong>{{row}}</strong></li>
   <li class="list-group-item">{{libro[row]}}</li>
 </div>
 </ul>
-<a onclick="window.close()" class="btn btn-primary" role="button">Chiudi</a>
+-->
+<ng-template #popContent>
+<table class="table table-sm table-dark">
+  <thead>
+    <th>Record</th>
+    <th>Valore</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of rows">
+      <td><strong>{{row}}</strong></td>
+      <td>{{libro[row]}}</td>
+    </tr>
+  </tbody>
+</table>
+</ng-template>
+<div class="row text-center">
+  <div class="col">
+    <a (click)="goBack()" class="btn btn-outline-secondary" role="button">Indietro</a>  
+  </div>
+</div>
+<div class="row text-center">
+  <div class="col">
+    <a role="button" class="btn btn-outline-secondary" [ngbPopover]="popContent">Dettagli</a>  
+  </div>
+</div>
