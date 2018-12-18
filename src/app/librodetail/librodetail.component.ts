@@ -1,25 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../api.service';
-import { Libro } from '../libro';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { shallowEqualArrays } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-librodetail',
   templateUrl: './librodetail.component.html',
   styleUrls: ['./librodetail.component.scss'],
-  providers: [ NgbPopoverConfig ]
 })
 export class LibrodetailComponent implements OnInit {
   public libro: Object;
   public rows: string[];
+  @Input() public n: number;
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute, private location: Location, private config: NgbPopoverConfig) { 
-    config.placement = 'bottom-left';
-    config.container = 'body';
-    config.popoverClass = 'my-custom-width';
-  }
+  constructor(private apiService: ApiService, private activeModal: NgbActiveModal) { }
 
   ngOnInit() {
     this.rows = [];
@@ -27,13 +21,10 @@ export class LibrodetailComponent implements OnInit {
   }
   
   getLibro(): void {
-    const n = +this.route.snapshot.paramMap.get('n');
-    this.apiService.getLibroDetail(n).subscribe(data => {
+    this.apiService.getLibroDetail(this.n).subscribe(data => {
       this.libro = data;
       this.rows = Object.keys(this.libro);
+      this.rows.sort();
     });
-  }
-  goBack(): void {
-    this.location.back();
   }
 }
