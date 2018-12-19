@@ -6,16 +6,16 @@
 <hr>
 <form #ricercaForm="ngForm" class="form-signin" (ngSubmit)="cerca(ricercaForm.value)">
   <div class="form-group">
-    <label for="stringa">Immetti stringa di ricerca</label>
+    <label for="stringa">Immetti la tua stringa di ricerca:</label>
     <input type="text"
       class="form-control" name="stringa" id="stringa" aria-describedby="helpId" placeholder="Testo della Ricerca" autofocus required ngModel>
     <small id="helpId" class="form-text text-muted">Il testo può essere sia relativo a un autore sia a un titolo.</small>
   </div>
   <div *ngIf="!ricercaForm.valid else showSubmitButton">
-        <button type="submit" class="btn btn-lg btn-primary" disabled>Cerca</button>
+        <button type="submit" class="btn btn-lg btn-dark" disabled>Cerca</button>
       </div>
       <ng-template #showSubmitButton>
-        <button type="submit" class="btn btn-lg btn-primary">Cerca</button>
+        <button type="submit" class="btn btn-lg btn-dark">Cerca</button>
       </ng-template>
 </form>
 <hr>
@@ -25,7 +25,7 @@
     </div>
 </div>
 <div *ngIf="submitted">
-  <div class="alert alert-success" role="alert">
+  <div class="alert alert-dark" role="alert">
       La ricerca ha prodotto <strong>{{libri.length}}</strong> volumi.
   </div>
   <ul *ngIf="pager.pages && pager.pages.length > 1" class="pagination justify-content-center">
