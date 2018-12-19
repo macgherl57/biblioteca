@@ -13,7 +13,7 @@ export class LibrodetailComponent implements OnInit {
   public rows: string[];
   @Input() public n: number;
 
-  constructor(private apiService: ApiService, private activeModal: NgbActiveModal) { }
+  constructor(private apiService: ApiService, public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
     this.rows = [];
