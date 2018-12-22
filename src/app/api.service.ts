@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Libro } from "./libro";
 import { Observable } from 'rxjs';
 
@@ -8,15 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
   constructor(private httpClient: HttpClient) { }
-  API_URL = "https://berchet.regonline.it/didattica/stud_free/angular_json";
+  private API_URL = "https://liceoberchet.gov.it:3306";
+  
   public getLibri(ricerca: string): Observable<Libro[]> {
     ricerca = ricerca.trim();
-    const options = ricerca ? { params: new HttpParams().set('stringa', ricerca)} : {};
-    return this.httpClient.get<Libro[]>(`${this.API_URL}/biblioteca.html`, options);
+    return this.httpClient.get<Libro[]>(`${this.API_URL}/search/` + ricerca);
   }
+  
   public getLibroDetail(n: number)  {
-    let param: string = n.toString();
-    const options = n ? { params: new HttpParams().set('n', param)} : {};
-    return this.httpClient.get(`${this.API_URL}/biblioteca.html`, options);
+    return this.httpClient.get(`${this.API_URL}/libro/` + n);
   }
 }

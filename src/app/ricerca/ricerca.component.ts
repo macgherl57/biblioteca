@@ -11,6 +11,7 @@ import { LibrodetailComponent } from '../librodetail/librodetail.component';
   styleUrls: ['./ricerca.component.scss']
 })
 export class RicercaComponent implements OnInit {
+  public title: string = 'Liceo Berchet - Biblioteca';
   public libri: Libro[];
   public submitted: boolean = false;
   pager: any = {};

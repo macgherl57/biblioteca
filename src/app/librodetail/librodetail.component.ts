@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../api.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { shallowEqualArrays } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-librodetail',
@@ -22,7 +21,7 @@ export class LibrodetailComponent implements OnInit {
   
   getLibro(): void {
     this.apiService.getLibroDetail(this.n).subscribe(data => {
-      this.libro = data;
+      this.libro = data["data"];
       this.rows = Object.keys(this.libro);
       this.rows.sort();
     });
